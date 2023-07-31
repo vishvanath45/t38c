@@ -80,6 +80,15 @@ func (query SearchQueryBuilder) Where(field string, min, max float64) SearchQuer
 	return query
 }
 
+// WhereString custom conditions.
+func (query SearchQueryBuilder) WhereString(field, conditions string) SearchQueryBuilder {
+	query.opts.WhereString = append(query.opts.WhereString, whereStringOpt{
+		Field:      field,
+		Conditions: conditions,
+	})
+	return query
+}
+
 // Wherein is similar to Where except that it checks whether the object’s field value is in a given list.
 func (query SearchQueryBuilder) Wherein(field string, values ...float64) SearchQueryBuilder {
 	query.opts.Wherein = append(query.opts.Wherein, whereinOpt{

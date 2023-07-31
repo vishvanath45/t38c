@@ -2,6 +2,11 @@ package t38c
 
 import "strconv"
 
+type whereStringOpt struct {
+	Field      string
+	Conditions string
+}
+
 type whereOpt struct {
 	Field string
 	Min   float64
@@ -20,21 +25,26 @@ type whereEvalOpt struct {
 }
 
 type searchOpts struct {
-	Asc       bool
-	Desc      bool
-	NoFields  bool
-	Clip      bool
-	Distance  bool
-	Cursor    *int
-	Limit     *int
-	Sparse    *int
-	Where     []whereOpt
-	Wherein   []whereinOpt
-	Match     []string
-	WhereEval []whereEvalOpt
+	Asc         bool
+	Desc        bool
+	NoFields    bool
+	Clip        bool
+	Distance    bool
+	Cursor      *int
+	Limit       *int
+	Sparse      *int
+	Where       []whereOpt
+	WhereString []whereStringOpt
+	Wherein     []whereinOpt
+	Match       []string
+	WhereEval   []whereEvalOpt
 }
 
 func (opts searchOpts) Args() (args []string) {
+	for _, opt := range opts.WhereString {
+		args = append(args, "WHERE", opt.Conditions)
+	}
+
 	for _, opt := range opts.Where {
 		args = append(args, "WHERE", opt.Field, floatString(opt.Min), floatString(opt.Max))
 	}
