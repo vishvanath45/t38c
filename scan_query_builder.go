@@ -84,6 +84,15 @@ func (query ScanQueryBuilder) Where(field string, min, max float64) ScanQueryBui
 	return query
 }
 
+// WhereString custom conditions.
+func (query ScanQueryBuilder) WhereString(field, conditions string) ScanQueryBuilder {
+	query.opts.WhereString = append(query.opts.WhereString, whereStringOpt{
+		Field:      field,
+		Conditions: conditions,
+	})
+	return query
+}
+
 // Wherein is similar to Where except that it checks whether the object’s field value is in a given list.
 func (query ScanQueryBuilder) Wherein(field string, values ...float64) ScanQueryBuilder {
 	query.opts.Wherein = append(query.opts.Wherein, whereinOpt{
