@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"github.com/xjem/t38c"
+	"github.com/vishvanath45/t38c"
 )
 
 func TestE2E(t *testing.T) {

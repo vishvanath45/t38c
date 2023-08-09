@@ -7,7 +7,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/xjem/t38c"
+	"github.com/vishvanath45/t38c"
 )
 
 func main() {
